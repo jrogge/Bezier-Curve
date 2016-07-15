@@ -2,6 +2,7 @@
 from Tkinter import *
 from math import *
 
+numberOfPoints = int(raw_input("how many points do you want to draw?\n:"))
 colorsList = {0:'orange', 1:'yellow', 2:'green', 3:'blue', 4:'purple', 5:'red'}
 numColors = len(colorsList)
 
@@ -35,6 +36,12 @@ def evenlySpacedPoints(num, skip):
         pointY = 350 + 250 * sin(rad)
         point = Point(pointX, pointY)
         handleClick(point)
+
+def intToHexColor(num):
+    hexValue = hex(num)[2:]
+    if len(hexValue) < 6:
+        hexValue = (6 - len(hexValue)) * '0' + hexValue
+    return '#' + hexValue
         
 def drawButtons(numPoints):
     for button in xrange(numPoints - 2):
@@ -126,6 +133,10 @@ def handleClick(event):
                 canvas.delete("all")
                 canvas.create_rectangle(width - buttonSize, 0, width,
                         buttonSize, fill="black") 
+                canvas.create_oval(400, 100, 900, 600)
+                for i in xrange(2):
+                    evenlySpacedPoints(numberOfPoints, 2) 
+                handleClick(Point(900,350))
             else:# first black button click
                 points.clear()
                 points[0] = []
@@ -159,6 +170,10 @@ if __name__ == "__main__":
             width, buttonSize,
             fill="black"
             )
+    canvas.create_oval(400, 100, 900, 600)
+    for i in xrange(2):
+        evenlySpacedPoints(numberOfPoints, 2) 
+    handleClick(Point(900,350))
     canvas.bind("<Button-1>", handleClick)
     canvas.pack()
 
