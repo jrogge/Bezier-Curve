@@ -31,7 +31,6 @@ class Point:
 def evenlySpacedPoints(num, skip):
     for i in xrange(num):
         rad = skip * (i * (2 * pi) / num)
-        print "rad: ", rad
         pointX = 650 + 250 * cos(rad)
         pointY = 350 + 250 * sin(rad)
         point = Point(pointX, pointY)
