@@ -3,6 +3,7 @@ from Tkinter import *
 from math import *
 
 numberOfPoints = int(raw_input("how many points do you want to draw?\n:"))
+skip = int(raw_input("How many points do you want to skip?\n:"))
 colorsList = {0:'orange', 1:'yellow', 2:'green', 3:'blue', 4:'purple', 5:'red'}
 numColors = len(colorsList)
 
@@ -128,18 +129,17 @@ def handleClick(event):
     if event.y <= buttonSize:
         if event.x >= width - buttonSize: 
             # Black button click
-            if points == {0:[], 'draw':['','']}: # second black button click
-                canvas.delete("all")
-                canvas.create_rectangle(width - buttonSize, 0, width,
-                        buttonSize, fill="black") 
-                canvas.create_oval(400, 100, 900, 600)
-                for i in xrange(2):
-                    evenlySpacedPoints(numberOfPoints, 2) 
-                handleClick(Point(900,350))
-            else:# first black button click
-                points.clear()
-                points[0] = []
-                points['draw'] = ['','']
+            points.clear()
+            points[0] = []
+            points['draw'] = ['','']
+            canvas.delete("all")
+            canvas.create_rectangle(width - buttonSize, 0, width,
+                    buttonSize, fill="black") 
+            canvas.create_oval(400, 100, 900, 600)
+            for i in xrange(2):
+                evenlySpacedPoints(numberOfPoints, skip) 
+            handleClick(Point(900,350))
+
 
         elif event.x/buttonSize <= len(points[0]) - 3:
             drawLevel = event.x/buttonSize  
@@ -171,7 +171,7 @@ if __name__ == "__main__":
             )
     canvas.create_oval(400, 100, 900, 600)
     for i in xrange(2):
-        evenlySpacedPoints(numberOfPoints, 2) 
+        evenlySpacedPoints(numberOfPoints, skip) 
     handleClick(Point(900,350))
     canvas.bind("<Button-1>", handleClick)
     canvas.pack()
