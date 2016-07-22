@@ -26,15 +26,6 @@ class Point:
     def __init__(self, x, y):
         self.x = x
         self.y = y
-
-def evenlySpacedPoints(num, skip):
-    for i in xrange(num):
-        rad = skip * (i * (2 * pi) / num)
-        print "rad: ", rad
-        pointX = 650 + 250 * cos(rad)
-        pointY = 350 + 250 * sin(rad)
-        point = Point(pointX, pointY)
-        handleClick(point)
         
 def drawButtons(numPoints):
     for button in xrange(numPoints - 2):
@@ -130,6 +121,9 @@ def handleClick(event):
                 points.clear()
                 points[0] = []
                 points['draw'] = ['','']
+                canvas.create_rectangle(0, 0, 
+                        width-buttonSize, buttonSize,
+                        fill="#FFFFFF", outline="#FFFFFF")
 
         elif event.x/buttonSize <= len(points[0]) - 3:
             drawLevel = event.x/buttonSize  
